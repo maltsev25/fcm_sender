@@ -1,0 +1,27 @@
+# systemd unit file
+#
+# place in /etc/systemd/system
+# systemctl enable fcm_sender.service
+# systemctl start fcm_sender.service
+
+[Unit]
+Description=fcm_sender
+After=network.target
+
+[Service]
+User=root
+Group=root
+
+# change WorkingDirectory to directory with project
+WorkingDirectory=/var/www/fcm_sender
+ExecStart=/var/www/fcm_sender/fcm_sender
+
+Restart=always
+RestartSec=10
+
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=fcm_sender
+
+[Install]
+WantedBy=multi-user.target
